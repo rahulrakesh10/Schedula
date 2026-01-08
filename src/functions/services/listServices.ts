@@ -7,7 +7,7 @@ import { parsePagination, createPaginationResponse } from '../../utils/paginatio
 import { trackException } from '../../telemetry/appinsights';
 
 async function listServicesHandler(
-  request: HttpRequest & AuthenticatedRequest,
+  request: AuthenticatedRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {

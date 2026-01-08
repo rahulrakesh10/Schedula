@@ -63,6 +63,11 @@ export async function login(
         },
         token,
       },
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
     };
   } catch (error) {
     trackException(error instanceof Error ? error : new Error(String(error)), {
@@ -81,3 +86,4 @@ app.http('login', {
   authLevel: 'anonymous',
   handler: login,
 });
+

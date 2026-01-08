@@ -20,3 +20,4 @@ tsconfig.json
 *.test.ts
 src
 !dist
+

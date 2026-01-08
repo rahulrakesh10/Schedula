@@ -51,3 +51,4 @@ app.http('healthCheck', {
   route: 'health',
   handler: healthCheck,
 });
+

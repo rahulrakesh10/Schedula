@@ -75,3 +75,4 @@ export async function getConfig(): Promise<AppConfig> {
 export function clearConfigCache(): void {
   cachedConfig = null;
 }
+

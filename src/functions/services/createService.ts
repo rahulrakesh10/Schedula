@@ -7,7 +7,7 @@ import { AuthenticatedRequest } from '../../middleware/auth';
 import { trackEvent, trackException } from '../../telemetry/appinsights';
 
 async function createServiceHandler(
-  request: HttpRequest & AuthenticatedRequest,
+  request: AuthenticatedRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
@@ -34,7 +34,7 @@ async function createServiceHandler(
 
     trackEvent('ServiceCreated', {
       serviceId: service.Id,
-      createdBy: request.user?.userId || 'unknown',
+      createdBy: request.user.userId || 'unknown',
     });
 
     return {

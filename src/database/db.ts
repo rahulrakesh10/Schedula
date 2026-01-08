@@ -12,23 +12,9 @@ export async function getDbPool(): Promise<sql.ConnectionPool> {
   }
 
   const config = await getConfig();
-  
-  const sqlConfig: sql.config = {
-    connectionString: config.sqlConnectionString,
-    options: {
-      enableArithAbort: true,
-      encrypt: true,
-      trustServerCertificate: config.environment === 'local',
-    },
-    pool: {
-      max: 10,
-      min: 0,
-      idleTimeoutMillis: 30000,
-    },
-  };
 
   try {
-    pool = await sql.connect(sqlConfig);
+    pool = await sql.connect(config.sqlConnectionString);
     return pool;
   } catch (error) {
     console.error('Database connection error:', error);
@@ -93,3 +79,4 @@ export async function closeDbPool(): Promise<void> {
     pool = null;
   }
 }
+

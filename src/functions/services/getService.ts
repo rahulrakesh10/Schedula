@@ -7,7 +7,7 @@ import { AuthenticatedRequest } from '../../middleware/auth';
 import { trackException } from '../../telemetry/appinsights';
 
 async function getServiceHandler(
-  request: HttpRequest & AuthenticatedRequest,
+  request: AuthenticatedRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {

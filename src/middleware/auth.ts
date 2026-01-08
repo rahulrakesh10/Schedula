@@ -2,12 +2,13 @@ import { HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functio
 import { verifyToken, extractToken, JWTPayload } from '../utils/auth';
 import { AuthenticationError, AuthorizationError } from '../utils/errors';
 
-export interface AuthenticatedRequest extends HttpRequest {
-  user?: JWTPayload;
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface AuthenticatedRequest extends Omit<HttpRequest, 'user'> {
+  user: JWTPayload;
 }
 
 type AuthenticatedHandler = (
-  request: HttpRequest & AuthenticatedRequest,
+  req: AuthenticatedRequest,
   context: InvocationContext
 ) => Promise<HttpResponseInit>;
 
@@ -19,10 +20,11 @@ export function authenticate(
 ): (request: HttpRequest, context: InvocationContext) => Promise<HttpResponseInit> {
   return async (request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> => {
     try {
-      const token = extractToken(request.headers?.authorization);
+      const authHeader = (request.headers as unknown as Record<string, string | undefined>)?.authorization;
+      const token = extractToken(authHeader);
       const user = await verifyToken(token);
-      (request as AuthenticatedRequest).user = user;
-      return await handler(request as AuthenticatedRequest, context);
+      const authRequest = { ...request, user } as AuthenticatedRequest;
+      return await handler(authRequest, context);
     } catch (error) {
       if (error instanceof AuthenticationError) {
         return {
@@ -44,20 +46,16 @@ export function authenticate(
  * Middleware to authorize requests based on roles
  */
 export function authorize(...allowedRoles: Array<'Admin' | 'Client'>) {
-  return (handler: AuthenticatedHandler): AuthenticatedHandler => {
-    return authenticate(async (request: AuthenticatedRequest, context: InvocationContext) => {
-      if (!request.user) {
-        throw new AuthenticationError('User not authenticated');
-      }
-
-      if (!allowedRoles.includes(request.user.role)) {
+  return (handler: AuthenticatedHandler) => {
+    return authenticate(async (req: AuthenticatedRequest, context: InvocationContext) => {
+      if (!allowedRoles.includes(req.user.role)) {
         throw new AuthorizationError(
           `Access denied. Required role: ${allowedRoles.join(' or ')}`
         );
       }
 
-      return await handler(request, context);
-    }) as AuthenticatedHandler;
+      return await handler(req, context);
+    });
   };
 }
 

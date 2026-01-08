@@ -31,3 +31,4 @@ export const VALIDATION = {
   MIN_BOOKING_ADVANCE_HOURS: 1, // Minimum hours in advance to book
   MAX_BOOKING_ADVANCE_DAYS: 90, // Maximum days in advance to book
 } as const;
+

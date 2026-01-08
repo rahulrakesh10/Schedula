@@ -10,7 +10,7 @@ import { withTransaction } from '../../utils/transaction';
 import { trackEvent, trackException, trackDependency } from '../../telemetry/appinsights';
 
 async function createBookingHandler(
-  request: HttpRequest & AuthenticatedRequest,
+  request: AuthenticatedRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   const startTime = Date.now();
@@ -117,6 +117,11 @@ async function createBookingHandler(
         message: 'Booking created successfully',
         booking,
       },
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      },
     };
   } catch (error) {
     const elapsed = Date.now() - startTime;
@@ -129,12 +134,15 @@ async function createBookingHandler(
     return {
       status: errorResponse.statusCode,
       jsonBody: errorResponse.body,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
     };
   }
 }
 
 app.http('createBooking', {
-  methods: ['POST'],
+  methods: ['POST', 'OPTIONS'],
   authLevel: 'function',
   handler: requireAuth(createBookingHandler) as any,
 });

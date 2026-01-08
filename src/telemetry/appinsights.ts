@@ -71,7 +71,10 @@ export function trackDependency(
       data: commandName,
       duration: elapsed,
       success,
+      dependencyTypeName: 'SQL',
+      resultCode: success ? '200' : '500',
       properties,
     });
   }
 }
+

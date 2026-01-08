@@ -32,9 +32,10 @@ export async function comparePassword(
  */
 export async function generateToken(payload: JWTPayload): Promise<string> {
   const config = await getConfig();
-  return jwt.sign(payload, config.jwtSecret, {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return jwt.sign(payload as any, config.jwtSecret, {
     expiresIn: config.jwtExpiresIn,
-  });
+  } as jwt.SignOptions);
 }
 
 /**
@@ -71,3 +72,4 @@ export function extractToken(authHeader: string | undefined): string {
 
   return parts[1];
 }
+

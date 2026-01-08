@@ -9,7 +9,7 @@ import { AuthenticatedRequest } from '../../middleware/auth';
 import { trackEvent, trackException } from '../../telemetry/appinsights';
 
 async function updateServiceHandler(
-  request: HttpRequest & AuthenticatedRequest,
+  request: AuthenticatedRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
