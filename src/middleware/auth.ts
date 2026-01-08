@@ -62,13 +62,13 @@ export function authorize(...allowedRoles: Array<'Admin' | 'Client'>) {
 /**
  * Middleware that requires Admin role
  */
-export function requireAdmin(handler: AuthenticatedHandler): AuthenticatedHandler {
-  return authorize('Admin')(handler);
+export function requireAdmin(handler: AuthenticatedHandler): any {
+  return authorize('Admin')(handler) as any;
 }
 
 /**
  * Middleware that requires any authenticated user
  */
-export function requireAuth(handler: AuthenticatedHandler): AuthenticatedHandler {
-  return authorize('Admin', 'Client')(handler);
+export function requireAuth(handler: AuthenticatedHandler): any {
+  return authorize('Admin', 'Client')(handler) as any;
 }
