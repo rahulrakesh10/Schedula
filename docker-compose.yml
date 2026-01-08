@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: schedula-sql
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourPassword123!
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourPassword123! -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  azure-functions:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: schedula-functions
+    environment:
+      - AzureWebJobsStorage=UseDevelopmentStorage=true
+      - FUNCTIONS_WORKER_RUNTIME=node
+      - FUNCTIONS_EXTENSION_VERSION=~4
+      - SQL_CONNECTION_STRING=Server=tcp:sqlserver,1433;Database=schedula;User ID=sa;Password=YourPassword123!;Encrypt=true;TrustServerCertificate=true;
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - JWT_EXPIRES_IN=24h
+      - ENVIRONMENT=local
+    ports:
+      - "7071:80"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    volumes:
+      - ./dist:/home/site/wwwroot/dist
+      - ./host.json:/home/site/wwwroot/host.json
+
+volumes:
+  sql_data:

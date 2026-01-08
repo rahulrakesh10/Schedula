@@ -1,0 +1,17 @@
+*.js.map
+*.ts
+.vscode/
+.git/
+.gitignore
+node_modules/
+.env
+local.settings.json
+.prettierrc
+.eslintrc.json
+tsconfig.json
+dist/
+*.md
+*.sql
+docker-compose.yml
+Dockerfile
+.dockerignore
