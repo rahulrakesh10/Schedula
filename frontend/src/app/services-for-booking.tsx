@@ -25,7 +25,7 @@ export function ServiceListForBooking() {
     (async () => {
       try {
         setLoading(true);
-        const res = await api.get("/services/public?page=1&limit=50");
+        const res = await api.get("/public-services?page=1&limit=50");
         setServices(res.data.data ?? res.data.services ?? []);
       } catch (err: any) {
         setError(

@@ -2,7 +2,7 @@
   "name": "schedula",
   "version": "1.0.0",
   "description": "Serverless Booking & Scheduling Backend on Azure",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
