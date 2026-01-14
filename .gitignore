@@ -13,4 +13,17 @@ local.settings.json
 .env.local
 .env.*.local
 
+# Next.js build output
+frontend/.next/
+frontend/out/
+
+# Temporary setup scripts (optional - remove if not needed)
+# add-test-data.js
+# fix-schema.js
+# setup-database.js
+
+# Log files
+/tmp/
+*.log
+
 
