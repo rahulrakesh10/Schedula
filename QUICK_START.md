@@ -55,8 +55,8 @@ npm run stop
 - Check: `docker ps`
 
 **Database errors?**
-- Run: `node setup-database.js` manually
-- Or: `node fix-schema.js` if tables are missing
+- Make sure SQL Server container is running: `docker ps`
+- Check SQL Server logs: `docker logs schedula-sql`
 
 **View logs:**
 - Backend: `tail -f /tmp/func-server.log`
