@@ -3,42 +3,82 @@ import { ServiceListForBooking } from "./services-for-booking";
 
 export default function HomePage() {
   return (
-    <div className="grid w-full gap-8 md:grid-cols-[1.4fr,1fr]">
+    <div className="space-y-8">
+      {/* Hero Section */}
       <section className="space-y-4">
-        <h1 className="text-3xl font-semibold tracking-tight">
-          Book an appointment
-        </h1>
-        <p className="max-w-xl text-sm text-slate-300">
-          Choose a service, pick a time, and confirm your booking. This UI
-          talks directly to your Schedula Azure Functions backend.
-        </p>
-        <ServiceListForBooking />
+        <div className="space-y-2">
+          <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text text-transparent">
+            Book Your Appointment
+          </h1>
+          <p className="max-w-2xl text-base text-slate-300 leading-relaxed">
+            Experience seamless booking with real-time availability. Choose from our services, 
+            pick your preferred time slot, and confirm instantly. No hassle, no waiting.
+          </p>
+        </div>
+        
+        {/* Feature Highlights */}
+        <div className="grid gap-3 sm:grid-cols-3">
+          <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/40 px-3 py-2">
+            <svg className="h-5 w-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span className="text-xs text-slate-300">Real-time Availability</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/40 px-3 py-2">
+            <svg className="h-5 w-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            <span className="text-xs text-slate-300">Instant Confirmation</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/40 px-3 py-2">
+            <svg className="h-5 w-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span className="text-xs text-slate-300">No Conflicts</span>
+          </div>
+        </div>
       </section>
-      <aside className="space-y-3 rounded-xl border border-slate-800 bg-slate-900/40 p-4 text-sm text-slate-300">
-        <h2 className="text-base font-semibold text-slate-50">
-          Admin & Client Portal
-        </h2>
-        <p>
-          Use the dashboard to manage services and view bookings. Authentication
-          is powered by your backend&apos;s JWT endpoints.
-        </p>
-        <div className="flex gap-2">
-          <Link
-            href="/login"
-            className="inline-flex flex-1 items-center justify-center rounded-md bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-700"
-          >
-            Login
-          </Link>
-          <Link
-            href="/register"
-            className="inline-flex flex-1 items-center justify-center rounded-md border border-slate-700 px-3 py-2 text-sm font-medium text-slate-100 hover:bg-slate-800"
-          >
-            Register
-          </Link>
+
+      {/* Main Booking Section */}
+      <ServiceListForBooking />
+
+      {/* Admin Portal Sidebar */}
+      <aside className="rounded-xl border border-slate-800 bg-gradient-to-br from-slate-900/60 to-slate-900/40 p-6 backdrop-blur-sm">
+        <div className="space-y-4">
+          <div>
+            <h2 className="text-lg font-semibold text-slate-50 mb-1">
+              Admin & Client Portal
+            </h2>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Manage your services, view bookings, and track your schedule. 
+              Secure authentication powered by JWT.
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <Link
+              href="/login"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-gradient-to-r from-brand-600 to-brand-700 px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-brand-500/20 transition-all hover:from-brand-700 hover:to-brand-800 hover:shadow-xl"
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+              </svg>
+              Login
+            </Link>
+            <Link
+              href="/register"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-md border border-slate-700 bg-slate-900/60 px-4 py-2.5 text-sm font-medium text-slate-100 transition-all hover:border-slate-600 hover:bg-slate-800/70"
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+              </svg>
+              Register
+            </Link>
+          </div>
         </div>
       </aside>
     </div>
   );
 }
+
 
 

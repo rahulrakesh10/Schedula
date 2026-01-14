@@ -8,6 +8,8 @@
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "func start",
+    "dev": "./start-all.sh",
+    "stop": "./stop-all.sh",
     "test": "jest",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"**/*.{ts,json,md}\""

@@ -24,6 +24,7 @@ import './functions/auth/login';
 import './functions/services/createService';
 import './functions/services/listServices';
 import './functions/services/listPublicServices';
+import './functions/services/getAvailability';
 import './functions/services/getService';
 import './functions/services/updateService';
 import './functions/services/deleteService';

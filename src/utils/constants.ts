@@ -32,3 +32,4 @@ export const VALIDATION = {
   MAX_BOOKING_ADVANCE_DAYS: 90, // Maximum days in advance to book
 } as const;
 
+

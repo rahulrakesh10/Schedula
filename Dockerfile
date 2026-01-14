@@ -25,3 +25,4 @@ COPY --from=base /home/site/wwwroot ./
 ENV AzureWebJobsScriptRoot=/home/site/wwwroot \
     AzureFunctionsJobHost__Logging__Console__IsEnabled=true
 
+

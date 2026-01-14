@@ -86,3 +86,4 @@ BEGIN
     INNER JOIN inserted i ON b.[Id] = i.[Id];
 END;
 
+
